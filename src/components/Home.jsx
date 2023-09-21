@@ -1,47 +1,48 @@
 import React, { useState, useEffect, useRef } from "react";
 import { signOut } from "firebase/auth";
-import { database } from "./FirebaseConfig";
+import { database } from '../firebaseConfig';
 import { useNavigate } from "react-router-dom";
 import Search from "./Search";
 import axios from "axios";
-
+// https://api.unsplash.com/photos?client_id=F70Avb-VkF7RE5zq-tL3UlolH-TYthKyfpdbuT-iiKU
 const Home = () => {
-  const API_URL_1 = "https://api.unsplash.com/search/photos/";
+  const API_URL_1 = "https://api.unsplash.com/search/photos";
   // To set default photos
   const [defaultPhotos, setDefaultPhotos] = useState([]);
-  async function getDefaultPhotos() {
+  const [loading, setLoading] = useState(false);
+  async function getSearchPhotos(searchWord) {
     try {
+      setLoading(true)
       const { data } = await axios.get(
-        `${API_URL_1}?query=nigeria&page=1&per_page=12&client_id=${
-          import.meta.env.VITE_UNSPLASH_KEY
-        }`
+        `${API_URL_1}?page=1&query=${searchWord}&client_id=F70Avb-VkF7RE5zq-tL3UlolH-TYthKyfpdbuT-iiKU`
       );
-      setDefaultPhotos(data.results);
+      setPhotosList(data.results);
+      setLoading(false)
     } catch (error) {
-      console.error("Error fetching default Nigeria photos:", error);
+      setLoading(false)
+      console.error("Error fetching photos:", error);
     }
   }
 
-  useEffect(() => {
-    getDefaultPhotos();
-  }, []);
-
-  console.log(defaultPhotos);
+  // useEffect(() => {
+  //   getDefaultPhotos();
+  // }, []);
 
   // To get searched Photos
-  const API_URL = "https://api.unsplash.com/search/photos/";
+  const API_URL = "https://api.unsplash.com/photos";
 
   const [photosList, setPhotosList] = useState([]);
 
   async function getPhotos() {
     try {
+    setLoading(true)
       const { data } = await axios.get(
-        `${API_URL}?query=${
-          searchInput.current.value
-        }&page=1&per_page=20&client_id=${import.meta.env.VITE_UNSPLASH_KEY}`
+        `${API_URL}?client_id=F70Avb-VkF7RE5zq-tL3UlolH-TYthKyfpdbuT-iiKU`
       );
-      setPhotosList(data.results);
+      setPhotosList(data);
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       console.log(error);
     }
   }
@@ -50,15 +51,13 @@ const Home = () => {
     getPhotos();
   }, []);
 
-  console.log(photosList);
-
   //  To Search
   const searchInput = useRef(null);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log(searchInput.current.value);
-    getPhotos();
+    let search = searchInput.current.value
+    getSearchPhotos(search);
   };
 
   // const handleSelection = (selection) => {
@@ -199,20 +198,25 @@ const Home = () => {
         handleSearch={handleSearch}
         searchInput={searchInput}
       />
+{ 
+  loading ?
+  <div>
+    {defaultPhotos <= 0 ? (
+      <h2 className="w-full text-center text-3xl m-auto h-calc p-20">
+        Loading...
+      </h2>
+    ) : (
+      ""
+    )}
+  </div>
+  :
+  <div className="w-full grid sm:grid-cols-4 grid-cols-2 content-center gap-4 ">
+    {photosList.length > 0 ? photosListElement : defaultPhotosElement}
+  </div>
+}
+      
 
-      <div>
-        {defaultPhotos <= 0 ? (
-          <h2 className="w-full text-center text-3xl m-auto h-calc p-20">
-            Loading...
-          </h2>
-        ) : (
-          ""
-        )}
-      </div>
-
-      <div className="w-full grid sm:grid-cols-4 grid-cols-2 content-center gap-4 ">
-        {photosList.length > 0 ? photosListElement : defaultPhotosElement}
-      </div>
+      
     </div>
   );
 };

@@ -1,7 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Layout from "./components/Layout"
-import RegisterAndLogin from './components/RegisterAndLogin'
+import Register from './components/Register'
+import Login from './components/Login'
 import Home from './components/Home'
 import './App.css'
 
@@ -11,9 +12,10 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path='/' element={<Layout />}>
-            <Route index element={<RegisterAndLogin />} />
-            <Route path='home' element={<Home />} />
+            <Route path='/' element={<Layout />}>
+            <Route path='/home' element={<Home />} />
+            <Route path='/signup' element={<Register />} />
+            <Route path='/login' element={<Login />} />
           </Route>
         </Routes>
       </Router>
