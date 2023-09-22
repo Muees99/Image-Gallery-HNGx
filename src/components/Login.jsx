@@ -59,7 +59,7 @@ const RegisterAndLogin = () => {
             />
         </div>
         <div className='flex justify-center'>
-          <button className='text-white font-bold bg-green rounded-md py-3 ' type='submit' >Sign In</button>
+          <button className='text-white font-bold bg-green rounded-md py-3 w-full' type='submit' >Sign In</button>
           </div>
         <div>
         <a href='/signup' className='flex justify-center'>Register</a>
