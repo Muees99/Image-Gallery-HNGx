@@ -5,15 +5,21 @@ This project consumes data from the unSplash API.
 
 
 ## Authentication
-Simple authentication system with Auth0 where a user can log in with the following details;
-email: user@example.com
-password: 1Password
+Simple authentication system with "Firebase Auth" where a user can log in with the following details;
+# Email: user@example.com
+# password: 1Password
+
+
+# Never User can SignUp as well if you really don't want to use the default login Info
 
 # To Start App
 
 npm run dev
 
+
 ## Demo
+
+
 
 Live Link:
 
@@ -31,7 +37,7 @@ Live Link:
 Before you begin, ensure you have met the following requirements:
 
 - [Node.js](https://nodejs.org/) installed.
-- TMDB API Key (Replace `'YOUR_API_KEY'` with your actual API key).
+- UNSPLASH API Key (Replace `'YOUR_API_KEY'` with your actual API key).
 
 ### Installation
 
