@@ -10,7 +10,7 @@ Simple authentication system with "Firebase Auth" where a user can log in with t
 # password: 1Password
 
 
-# Never User can SignUp as well if you really don't want to use the default login Info
+# NeW User can SignUp as well if you really don't want to use the default login Info provided above
 
 # To Start App
 
