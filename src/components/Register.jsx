@@ -53,7 +53,7 @@ const RegisterAndLogin = () => {
             onChange={(e) => setPassword(e.target.value)}
             />
         </div>
-        <button className='text-white font-bold bg-green rounded-md py-3 w-full' type='submit'>Register</button>
+        <button className='text-white font-bold bg-green rounded-md py-3 ' type='submit'>Register</button>
       </form>
     </div>
   )
